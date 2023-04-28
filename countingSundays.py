@@ -1,22 +1,22 @@
-def monthLength(mon, year):
-    if mon == 1:
-        return 29 if year%400==0 or (year%100==0 ^ year%4==0) else 28
+firstSundays = 0
+monthDays = [31,None,31,30,31,30,31,31,30,31,30,31]
+
+firstDay, month, year = 0,0,1900
+
+def isLeap(year):
+    if year%100==0 and year%400!=0:
+        return False
     else:
-        return [31, None, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][mon]
+        return year%4==0 
 
-def foo(day,mon,year,total):
-    if year == 2000 and mon == 11:
-        return total
+while month != 11 or year != 2000:
+    month = month + 1 if month != 11 else 0
+    year = year if month != 0 else year + 1
+    days = monthDays[month-1] if month-1 != 1  else 29 if isLeap(year) else 28
+    
+    firstDay = (firstDay + days%7)%7
+    
+    if firstDay == 6 and year != 1900:
+        firstSundays += 1
 
-    nextMonthFirstDay = (day + monthLength(mon,year)%7)%7
-
-    foo(nextMonthFirstDay,(mon+1)%12,year if mon!=11 else year+1, total if nextMonthFirstDay!=0 else total+1)
-
-
-print(foo(0,0,1900,0))
-
-
-total = 0
-
-while year != 2000 and mon != 11:
-    if year != 1900 # Somethin        
+print(firstSundays)
