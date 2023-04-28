@@ -19,5 +19,4 @@ print(foo(0,0,1900,0))
 total = 0
 
 while year != 2000 and mon != 11:
-    if year != 1900 # Something
-        
+    if year != 1900 # Somethin        
